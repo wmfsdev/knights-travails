@@ -113,7 +113,7 @@ const Tree = (start, end) => {
 
     getRoot = () => root
 
-    return { root, levelOrder, insert, search, getRoot }
+    return { root, insert, getRoot }  // levelOrder, search
 }
 
 // function log(array = [0,0], end = [1,2]) {
