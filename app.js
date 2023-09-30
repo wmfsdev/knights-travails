@@ -1,119 +1,109 @@
 
 
-const Node = (pos) => {    // [...pos]
-
+const Node = (pos, prevPos, visited) => {
+console.log("-----NODE-----")
+    console.log("position: ", pos )
+     console.log("previous position: ", prevPos )
+     console.log("visted: ", visited )
+     console.log("---------------")
     const neighbours = []
     const position = pos
 
-    //const edge = 
+  
+     let visitedSquares = [pos, ...visited]  //   const visitedSquares = [pos, ...visited]
+       
 
     //  ROW  ---- COLUMN
     const getNeighbours = () => {
-        console.log(pos)
-     //   for (let i = 0 ; i < pos.length ; i++) {    // for every argument passed do the following
-      
+ 
         if (pos[0] + 1 < 7 && pos[1] + 2 < 7) {     // one right, two down
-            let neighbour = Node( [pos[0] + 1, pos[1] + 2] )
+            // visitedSquares.push(pos)
+            let neighbour = Node( [pos[0] + 1, pos[1] + 2], prevPos, visitedSquares )
             neighbours.push(neighbour)
         
         }  if (pos[0] + 1 < 7 && pos[1] - 2 >= 0) { // one right, two 
-            let neighbour = Node( [pos[0] + 1, pos[1] - 2] )
+            //  visitedSquares.push(pos)      
+            let neighbour = Node( [pos[0] + 1, pos[1] - 2], prevPos, visitedSquares )
             neighbours.push(neighbour)
 
         }  if (pos[0] + 2 < 7 && pos[1] + 1 < 7) { // two right, one down
-            let neighbour = Node( [pos[0] + 2, pos[1] + 1] )
+            //  visitedSquares.push(pos)       
+            let neighbour = Node( [pos[0] + 2, pos[1] + 1], prevPos, visitedSquares )
             neighbours.push(neighbour)
         
         }  if (pos[0] + 2 < 7 && pos[1] - 1 >= 0) { // two right, one up
-            let neighbour = Node( [pos[0] + 2, pos[1] - 1] )
+            //  visitedSquares.push(pos)        
+            let neighbour = Node( [pos[0] + 2, pos[1] - 1], prevPos, visitedSquares )
             neighbours.push(neighbour)
 
         }  if (pos[0] - 2 >= 0 && pos[1] - 1 >= 0) { // two left, one up
-            let neighbour = Node( [pos[0] - 2, pos[1] - 1] )
+            //  visitedSquares.push(pos)       
+            let neighbour = Node( [pos[0] - 2, pos[1] - 1], prevPos, visitedSquares )
             neighbours.push(neighbour)
 
         }  if (pos[0] - 1 >= 0 && pos[1] - 2 >= 0) { // one left, two up
-            let neighbour = Node( [pos[0] - 1, pos[1] - 2] )
+            //  visitedSquares.push(pos)      
+            let neighbour = Node( [pos[0] - 1, pos[1] - 2], prevPos, visitedSquares )
             neighbours.push(neighbour)
 
         }  if (pos[0] - 2 >= 0 && pos[1] + 1 < 7) { // two left, one down
-            let neighbour = Node( [pos[0] - 2, pos[1] + 1] )
+            //  visitedSquares.push(pos)      
+            let neighbour = Node( [pos[0] - 2, pos[1] + 1], prevPos, visitedSquares )
             neighbours.push(neighbour)
 
         }  if (pos[0] - 1 >= 0 && pos[1] + 2 < 7) { // one left, two down
-            let neighbour = Node( [pos[0] - 1, pos[1] + 2] )
+            //  visitedSquares.push(pos)     
+            let neighbour = Node( [pos[0] - 1, pos[1] + 2], prevPos, visitedSquares )
             neighbours.push(neighbour) 
         }
-  //  }
     }
-    return { getNeighbours, position, neighbours }
+    return { getNeighbours, visitedSquares, position,  neighbours }
 };
 
 
-const Tree = (start, end) => {
+// TREE ------- TREE ------- TREE
+
+const Tree = (start, previous = start, visited = start, end) => {
     
     let root = [];
+    root.push(buildTree(start, previous, visited));
 
-    root.push(buildTree(start));
-    
-
-    // const levelOrder = (cb) => { 
-
-    //     let queue = root
-    //     let store = []
-    
-    //     while ( queue.length !== 0 ) {  
-            
-    //         let current = queue[0]
-    //         store.push(root)
-           
-    //         if (current.left !== null) {
-    //             queue.push(current.left)
-    //         }
+    const search = (end) => {
         
-    //         if (current.right !== null) {
-    //             queue.push(current.right)
-    //         }
-    
-    //         if (cb) {
-    //             console.log(queue[0].data)
-    //         }
+        lastIndex = root.length - 1
+
+        for (const prop of root[lastIndex].neighbours) {
+            console.log(prop.position)
+            console.log(end)
+            if ( prop.position[0] === end[0] && prop.position[1] === end[1] ) {
+                console.log(prop, end)
+                console.log("yes")
+            }
+        }
+    };
+
+
+// this should receive the correct root[index] from search, i think
+    const insert = (previousNode) => {
+
+        const neighbours = previousNode.neighbours
         
-    //         queue.shift()
-    //     }
-        
-    //     if ( queue.length === 0 ) {
-    //         return store
-    //     }
-    // };
+     //   console.log("neighbours: ", neighbours)
 
-    // const search = (end) => {
-        
-    //     lastIndex = root.length - 1
-
-    //     for (const prop of root[lastIndex].neighbours) {
-    //         console.log(prop.position)
-    //         console.log(end)
-    //         if ( prop.position[0] === end[0] && prop.position[1] === end[1] ) {
-    //             console.log(prop, end)
-    //             console.log("yes")
-    //         }
-    //     }
-    // };
-
-
-    const insert = (...arr) => {
-        const test = [...arr]
-        console.log(test)
-
-        test.forEach(element => {
-            root.push(buildTree(element))
+        neighbours.forEach(neighbour => {
+            // calculate previous position
+            console.log("-----INSERT-----")
+            console.log(neighbour.position)
+            console.log(previousNode.position)
+            console.log(previousNode.visitedSquares)
+            console.log("--------------")
+            root.push(buildTree(neighbour.position, previousNode.position, previousNode.visitedSquares ))
         });     
     };
 
     getRoot = () => root
 
-    return { root, insert, getRoot }  // levelOrder, search
+    return { root, insert, search, getRoot }  // levelOrder, 
 }
 
 // function log(array = [0,0], end = [1,2]) {
@@ -123,10 +113,9 @@ const Tree = (start, end) => {
 //     some.search(end)   
 // }
 
+function buildTree(start, prevPos, visitedSquares) {
 
-function buildTree(start, end) {
-
-    let root = Node(start, end)
+    let root = Node(start, prevPos, visitedSquares)
 
     root.getNeighbours()
 
