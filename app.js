@@ -124,7 +124,10 @@ const Tree = (start, previous = start, visited = start) => {
 
         let result = tree.search(end, node)
     
-        if (result instanceof Set) return convertSet(result, end)
+        if (result instanceof Set) {
+
+            return convertSet(result, end)
+        } 
 
         tree.insert(tree.root[result])
         node++
@@ -140,8 +143,8 @@ const convertSet = (result, end) => {
     const path = []
 
     const removeNumbers = (result) => {
-        result.forEach(item => {    
-            if (item < 10) {
+        result.forEach(item => {   
+            if ( typeof item !== "string") {
                 result.delete(item)
             }
         });
@@ -152,12 +155,13 @@ const convertSet = (result, end) => {
         
         set.forEach(ele => {
             path.push( [Number(ele.charAt(0)), Number(ele.charAt(1))] )
+
         });
     };
 
     const revisedSet = removeNumbers(result, end)
     convertToNumbers(revisedSet)
-    path.push(end)
+    path.push(end) 
     display(path)
 };
 
@@ -169,9 +173,8 @@ function display(path) {
     console.log("steps taken: ", path.length - 1)
 };
 
-function knight(array = [1,2], end = [5,5]) {
-
-    let tree = Tree(array)
+function knight(array = [0,0], end = [7,7]) {
+    const tree = Tree(array)
     tree.levelOrder(tree, end) 
 };
 
@@ -180,14 +183,14 @@ function knight(array = [1,2], end = [5,5]) {
 
 console.log("KNIGHTS TRAVAILS")
 console.log("    ________________________ ")
-console.log("7  |                       | ")
-console.log("6  |         2             | ")
-console.log("5  |               3       | ")
-console.log("4  |      1                | ")
-console.log("3  |                       | ")
-console.log("2  |    0                  | ")
-console.log("1  |                       | ")
-console.log("0  |_______________________| ")
+console.log("7  |                        | ")
+console.log("6  |         2              | ")
+console.log("5  |               3        | ")
+console.log("4  |      1                 | ")
+console.log("3  |                        | ")
+console.log("2  |    0                   | ")
+console.log("1  |                        | ")
+console.log("0  |________________________| ")
 console.log("     0  1  2  3  4  5  6  7")
 console.log("                             ")
 console.log("demo: knight( [1,2], [5,5] ) ")
