@@ -124,10 +124,7 @@ const Tree = (start, previous = start, visited = start) => {
 
         let result = tree.search(end, node)
     
-        if (result instanceof Set) {
-
-            return convertSet(result, end)
-        } 
+        if (result instanceof Set) return convertSet(result, end)
 
         tree.insert(tree.root[result])
         node++
@@ -182,18 +179,18 @@ function knight(array = [0,0], end = [7,7]) {
 // DEMONSTRATION
 
 console.log("KNIGHTS TRAVAILS")
-console.log("    ________________________ ")
-console.log("7  |                        | ")
-console.log("6  |         2              | ")
-console.log("5  |               3        | ")
-console.log("4  |      1                 | ")
+console.log("    ________________________  ")
+console.log("7  |                      6 | ")
+console.log("6  |          3      5      | ")
+console.log("5  |                        | ")
+console.log("4  |       2     4          | ")
 console.log("3  |                        | ")
-console.log("2  |    0                   | ")
+console.log("2  |    1                   | ")
 console.log("1  |                        | ")
-console.log("0  |________________________| ")
-console.log("     0  1  2  3  4  5  6  7")
-console.log("                             ")
-console.log("demo: knight( [1,2], [5,5] ) ")
+console.log("0  |0_______________________| ")
+console.log("     0  1  2  3  4  5  6  7   ")
+console.log("                              ")
+console.log("demo: knight( [1,2], [5,5] )  ")
 console.log("")
 knight()
 console.log("")
