@@ -158,14 +158,40 @@ const convertSet = (result, end) => {
     const revisedSet = removeNumbers(result, end)
     convertToNumbers(revisedSet)
     path.push(end)
-
-    console.log("shortest path: ", path)
-    console.log("steps taken: ", path.length - 1)
+    display(path)
 };
 
+function display(path) {
+    console.log("shortest path:")
+    path.forEach(element => {
+        console.log(element)
+    });
+    console.log("steps taken: ", path.length - 1)
+};
 
 function knight(array = [1,2], end = [5,5]) {
 
     let tree = Tree(array)
     tree.levelOrder(tree, end) 
 };
+
+
+// DEMONSTRATION
+
+console.log("    0   1    2   3   4   5  6   7")
+console.log("    ___________________________  ")
+console.log("7  |                           | ")
+console.log("6  |                           | ")
+console.log("5  |                           | ")
+console.log("4  |                           | ")
+console.log("3  |                           | ")
+console.log("2  |                           | ")
+console.log("1  |                           | ")
+console.log("0  |___________________________| ")
+console.log("                                 ")
+console.log("demo: knight( [1,2], [5,5] )")
+console.log("")
+knight()
+console.log("")
+console.log("...now your turn!")
+console.log("coordinate order is row / column. first parameter is start point, second is destination.")
